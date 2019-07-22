@@ -6,9 +6,9 @@ import (
 	"io"
 )
 
-// readBytes the primitive function used by this library to read streams in chunks which may be offset.
+// readBytesPrimitive the primitive function used by this library to read streams in chunks which may be offset.
 // returns bytes read, number of bytes read and any errors that may have occurred.
-func readBytes(reader io.Reader, length int, offset int) ([]byte, int, error) {
+func readBytesPrimitive(reader io.Reader, length int, offset int) ([]byte, int, error) {
 	bytes := make([]byte, length)
 
 	if offset != 0 {
@@ -31,5 +31,13 @@ func readBytes(reader io.Reader, length int, offset int) ([]byte, int, error) {
 	}
 
 	return bytes, retNum, nil
+}
+
+func ReadBytes(reader io.Reader, size int) ([]byte, int, error) {
+	return readBytesPrimitive(reader, size, 0)
+}
+
+func ReadBytesOffset(reader io.Reader, size int, offset int) ([]byte, int, error) {
+	return readBytesPrimitive(reader, size, offset)
 }
 
